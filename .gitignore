@@ -1,0 +1,6 @@
+/site/
+.venv/
+__pycache__/
+
+# built benchmark driver
+/benchmarks/go/bench
