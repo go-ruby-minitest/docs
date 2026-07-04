@@ -6,17 +6,17 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Pure-Go, MRI-4.0.5-faithful Ruby minitest (no cgo)">
+        <meta name="description" content="A pure-Go reimplementation of the core of Ruby's Minitest test framework (assertions, run lifecycle, spec DSL, mock/stub), MRI-faithful, no cgo.">
       
       
       
-        <link rel="canonical" href="https://go-ruby-minitest.github.io/docs/0.1/reference/">
+        <link rel="canonical" href="https://go-ruby-minitest.github.io/docs/0.1/lifecycle/">
       
       
-        <link rel="prev" href="../why/">
+        <link rel="prev" href="../assertions/">
       
       
-        <link rel="next" href="../contributing/">
+        <link rel="next" href="../roadmap/">
       
       
       <link rel="icon" href="../assets/logo.svg">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Reference - go-ruby-minitest docs</title>
+        <title>Run lifecycle & results - go-ruby-minitest docs</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#reference" class="md-skip">
+        <a href="#run-lifecycle-results" class="md-skip">
           Skip to content
         </a>
       
@@ -115,7 +115,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Reference
+              Run lifecycle & results
             
           </span>
         </div>
@@ -293,7 +293,47 @@
         
   
   <span class="md-ellipsis">
-    Why pure Go
+    Why a formatter/orchestrator, not an interpreter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Usage & API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../assertions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Assertions & messages
   </span>
   
 
@@ -322,7 +362,7 @@
           
   
   <span class="md-ellipsis">
-    Reference
+    Run lifecycle & results
   </span>
   
 
@@ -333,7 +373,7 @@
         
   
   <span class="md-ellipsis">
-    Reference
+    Run lifecycle & results
   </span>
   
 
@@ -355,36 +395,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#install" class="md-nav__link">
+  <a href="#the-capture-protocol" class="md-nav__link">
     <span class="md-ellipsis">
-      Install
+      The capture protocol
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#import" class="md-nav__link">
+  <a href="#result" class="md-nav__link">
     <span class="md-ellipsis">
-      Import
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#api-reference" class="md-nav__link">
-    <span class="md-ellipsis">
-      API reference
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#conformance" class="md-nav__link">
-    <span class="md-ellipsis">
-      Conformance
+      Result
     </span>
   </a>
   
@@ -394,6 +416,46 @@
   
 </nav>
       
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../roadmap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Roadmap
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Performance
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -445,36 +507,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#install" class="md-nav__link">
+  <a href="#the-capture-protocol" class="md-nav__link">
     <span class="md-ellipsis">
-      Install
+      The capture protocol
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#import" class="md-nav__link">
+  <a href="#result" class="md-nav__link">
     <span class="md-ellipsis">
-      Import
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#api-reference" class="md-nav__link">
-    <span class="md-ellipsis">
-      API reference
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#conformance" class="md-nav__link">
-    <span class="md-ellipsis">
-      Conformance
+      Result
     </span>
   </a>
   
@@ -495,30 +539,86 @@
                   
 
 
-<h1 id="reference">Reference<a class="headerlink" href="#reference" title="Permanent link">&para;</a></h1>
-<p>The public API lives at the module root (<code>github.com/go-ruby-minitest/minitest</code>). It is
-<strong>Ruby-shaped but Go-idiomatic</strong>: names mirror Ruby's <code>minitest</code>, while the surface follows
-Go conventions — value types, explicit errors, no global state.</p>
-<h2 id="install">Install<a class="headerlink" href="#install" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>go<span class="w"> </span>get<span class="w"> </span>github.com/go-ruby-minitest/minitest
+<h1 id="run-lifecycle-results">Run lifecycle &amp; results<a class="headerlink" href="#run-lifecycle-results" title="Permanent link">&para;</a></h1>
+<p><code>RunTest</code> reproduces <code>Minitest::Test#run</code> exactly.</p>
+<h2 id="the-capture-protocol">The capture protocol<a class="headerlink" href="#the-capture-protocol" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>SETUP_METHODS + body   →  one shared capture_exceptions
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  before_setup
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>  setup
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  after_setup
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>  test_&lt;name&gt;          (the body)
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>TEARDOWN_METHODS       →  each in its own capture_exceptions (all always run)
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>  before_teardown
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>  teardown
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>  after_teardown
 </code></pre></div>
-<h2 id="import">Import<a class="headerlink" href="#import" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">&quot;github.com/go-ruby-minitest/minitest&quot;</span>
-</code></pre></div>
-<h2 id="api-reference">API reference<a class="headerlink" href="#api-reference" title="Permanent link">&para;</a></h2>
-<p>The authoritative, always-current API reference is generated from the source by
-pkg.go.dev:</p>
 <ul>
-<li><strong><a href="https://pkg.go.dev/github.com/go-ruby-minitest/minitest">pkg.go.dev/github.com/go-ruby-minitest/minitest</a></strong></li>
+<li>The setup hooks and the body share <strong>one</strong> <code>capture_exceptions</code>: the first
+  raise stops the rest of that block (an assertion or error in <code>setup</code> skips the
+  body).</li>
+<li>Each teardown hook gets its <strong>own</strong> <code>capture_exceptions</code> and always runs, so a
+  failing teardown still lets the others execute and records every failure.</li>
+<li>Failures are appended in occurrence order.</li>
 </ul>
-<p>The module's <a href="https://github.com/go-ruby-minitest/minitest#readme">README</a> carries worked
-examples and the full, up-to-date surface. This page intentionally links to those
-canonical sources rather than duplicating signatures that could drift out of date.</p>
-<h2 id="conformance">Conformance<a class="headerlink" href="#conformance" title="Permanent link">&para;</a></h2>
-<p>Behaviour is pinned by a <strong>differential oracle</strong> against reference Ruby: a corpus
-is run through both the <code>ruby</code> binary and this library and the results are compared,
-gated on the reference where relevant and skipping itself where <code>ruby</code> is absent so
-the cross-arch lanes still validate the library.</p>
+<p>A <code>Passthrough</code> exception (<code>NoMemoryError</code> / <code>SignalException</code> / <code>SystemExit</code>)
+aborts the run instead of being recorded; <code>RunTest</code> returns it via <code>abort</code> and
+still returns the partial <code>Result</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nx">res</span><span class="p">,</span><span class="w"> </span><span class="nx">abort</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">minitest</span><span class="p">.</span><span class="nx">RunTest</span><span class="p">(</span><span class="nx">body</span><span class="p">,</span><span class="w"> </span><span class="nx">elapsed</span><span class="p">)</span>
+</code></pre></div>
+<p><code>body</code> is the host's <code>TestBody</code>: it invokes a named hook or <code>test_*</code> method in
+the VM and returns the captured, already-classified exception (<code>*Assertion</code>,
+<code>*Skip</code>, <code>*UnexpectedError</code>, or a passthrough sentinel), plus the test's name,
+class, assertion count and source location.</p>
+<h2 id="result">Result<a class="headerlink" href="#result" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kd">type</span><span class="w"> </span><span class="nx">Result</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="nx">Klass</span><span class="p">,</span><span class="w"> </span><span class="nx">TestName</span><span class="w"> </span><span class="kt">string</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="nx">Assertions</span><span class="w">      </span><span class="kt">int</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="nx">Failures</span><span class="w">        </span><span class="p">[]</span><span class="nx">Reportable2</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="nx">Time</span><span class="w">            </span><span class="kt">float64</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="nx">SourceFile</span><span class="w">      </span><span class="kt">string</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="nx">SourceLine</span><span class="w">      </span><span class="kt">int</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="p">}</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Passed()</code></td>
+<td>no failure (a <strong>skip is not passing</strong>)</td>
+</tr>
+<tr>
+<td><code>Skipped()</code></td>
+<td>the first failure is a <code>*Skip</code></td>
+</tr>
+<tr>
+<td><code>Errored()</code></td>
+<td>any failure is an <code>*UnexpectedError</code></td>
+</tr>
+<tr>
+<td><code>ResultCode()</code></td>
+<td><code>.</code> passed · <code>F</code> failure · <code>E</code> error · <code>S</code> skip</td>
+</tr>
+<tr>
+<td><code>Location(baseDir)</code></td>
+<td><code>Class#name</code> plus <code>[file:line]</code> of the failure (unless passed/errored); <code>baseDir</code> is stripped like Ruby's <code>delete_prefix BASE_DIR</code></td>
+</tr>
+<tr>
+<td><code>String(baseDir)</code></td>
+<td><code>Result#to_s</code>: the location when passed, else each failure as <code>&lt;label&gt;:\n&lt;location&gt;:\n&lt;message&gt;\n</code> joined by newlines</td>
+</tr>
+</tbody>
+</table>
+<p>The failure model is <code>Assertion</code> (label <code>Failure</code>, code <code>F</code>) &lt; <code>Skip</code> (label
+<code>Skipped</code>, code <code>S</code>), and <code>UnexpectedError</code> (label <code>Error</code>, code <code>E</code>) which
+renders <code>#{class}: #{message}\n    #{backtrace}</code>. <code>Location</code> walks the
+host-supplied backtrace and attributes the failure to the frame just past the
+deepest assertion-helper frame, mirroring <code>Minitest::Assertion::RE</code>.</p>
 
 
 

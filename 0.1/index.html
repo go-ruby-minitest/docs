@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Pure-Go, MRI-4.0.5-faithful Ruby minitest (no cgo)">
+        <meta name="description" content="A pure-Go reimplementation of the core of Ruby's Minitest test framework (assertions, run lifecycle, spec DSL, mock/stub), MRI-faithful, no cgo.">
       
       
       
@@ -313,9 +313,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#install" class="md-nav__link">
+  <a href="#what-it-is-and-isnt" class="md-nav__link">
     <span class="md-ellipsis">
-      Install
+      What it is — and isn't
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-taste" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick taste
     </span>
   </a>
   
@@ -367,7 +376,7 @@
         
   
   <span class="md-ellipsis">
-    Why pure Go
+    Why a formatter/orchestrator, not an interpreter
   </span>
   
 
@@ -383,11 +392,91 @@
   
   
     <li class="md-nav__item">
-      <a href="reference/" class="md-nav__link">
+      <a href="api/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Reference
+    Usage & API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="assertions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Assertions & messages
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="lifecycle/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Run lifecycle & results
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="roadmap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Roadmap
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="performance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Performance
   </span>
   
 
@@ -443,9 +532,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#install" class="md-nav__link">
+  <a href="#what-it-is-and-isnt" class="md-nav__link">
     <span class="md-ellipsis">
-      Install
+      What it is — and isn't
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-taste" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick taste
     </span>
   </a>
   
@@ -494,23 +592,55 @@
 
 
 <h1 id="go-ruby-minitest-documentation">go-ruby-minitest documentation<a class="headerlink" href="#go-ruby-minitest-documentation" title="Permanent link">&para;</a></h1>
-<p><strong>Pure-Go, MRI-4.0.5-faithful Ruby minitest (no cgo)</strong></p>
-<p><code>go-ruby-minitest/minitest</code> is a faithful, pure-Go (zero cgo) reimplementation of Ruby's <code>minitest</code>,
-matching reference Ruby (MRI) behaviour. The module path is
+<p><strong>A pure-Go reimplementation of the core of Ruby's Minitest</strong> — the
+deterministic, interpreter-independent heart of the framework (targeting Minitest
+5.x), built with <strong>zero cgo</strong>.</p>
+<p><code>go-ruby-minitest/minitest</code> owns the assertion layer, the per-test run lifecycle,
+result aggregation, the spec DSL → assertion mapping, and the Mock / Stub object
+framework. Given a Ruby runtime to supply value semantics, it produces the
+<strong>exact same</strong> assertion failure messages, <code>mu_pp</code> inspection output, and
+run-result counts as the <code>minitest</code> gem, byte-for-byte. The module path is
 <code>github.com/go-ruby-minitest/minitest</code>.</p>
-<p>It is a <strong>standalone, reusable</strong> library importable by any Go program, and the
-backend bound into <a href="https://github.com/go-embedded-ruby/ruby">go-embedded-ruby</a>
-by <code>rbgo</code> as a native module — the same pattern as
-<a href="https://github.com/go-ruby-yaml/yaml">go-ruby-yaml</a>. The dependency runs the
-other way: this library has <strong>no dependency on the Ruby runtime</strong>.</p>
+<p>The module is <strong>standalone and reusable</strong>: any Go program can import it. It is
+also the Minitest backend for
+<a href="https://github.com/go-embedded-ruby/ruby">go-embedded-ruby</a> (rbgo), where the
+host wires the <code>Runtime</code> seam over its object graph so real Minitest suites run
+on a pure-Go Ruby.</p>
 <div class="admonition success">
-<p class="admonition-title">Status: pure-Go, CGO=0, differential-tested</p>
-<p>A faithful pure-Go port of Ruby's <code>minitest</code>, validated against reference Ruby, at 100%
-coverage, <code>gofmt</code> + <code>go vet</code> clean, CI green across the six 64-bit Go targets
-and three OSes.</p>
+<p class="admonition-title">Status: core complete — gem byte-exact</p>
+<p>Every <code>assert_*</code>/<code>refute_*</code> (plus <code>flunk</code>/<code>skip</code>/<code>pass</code>) with its <strong>byte-exact</strong>
+failure message, <code>mu_pp</code>/<code>mu_pp_for_diff</code>, the custom-message prepend and the
+assertion counter; the <code>Test#run</code> lifecycle and the <code>Result</code> model; the
+<code>describe</code>/<code>it</code> spec DSL with the full <code>must_*</code>/<code>wont_*</code> mapping; and the
+<code>Mock</code>/<code>Stub</code> framework. Validated by a <strong>differential gem oracle</strong> against the
+live <code>minitest</code> 5.x gem — every message, <code>mu_pp</code>, run-result tuple and
+mock-verify diagnostic compared byte-for-byte — at 100% coverage, <code>gofmt</code> +
+<code>go vet</code> clean, CI green across the six 64-bit Go targets and three OSes.</p>
 </div>
-<h2 id="install">Install<a class="headerlink" href="#install" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>go<span class="w"> </span>get<span class="w"> </span>github.com/go-ruby-minitest/minitest
+<h2 id="what-it-is-and-isnt">What it is — and isn't<a class="headerlink" href="#what-it-is-and-isnt" title="Permanent link">&para;</a></h2>
+<p>The load-bearing part of Minitest is the <strong>wording</strong>: the
+<code>"Expected: 1\n  Actual: 2"</code> of <code>assert_equal</code>, the <code>mu_pp</code> inspection, the
+custom-message prepend, the mock-verify diagnostics. That formatting, the run
+orchestration (<code>before_setup</code>/<code>setup</code>/… → body → teardown), result coding and
+mock bookkeeping are fully <strong>deterministic</strong> and live here as pure Go. Evaluating
+the test <strong>bodies</strong> and the value-level operations an assertion compares with
+(<code>#==</code>, <code>#=~</code>, <code>#inspect</code>, <code>#include?</code>, <code>#respond_to?</code>, …) need a Ruby
+interpreter and are the host's job, funnelled through one explicit
+<a href="api/#the-runtime-seam"><code>Runtime</code></a> seam.</p>
+<blockquote>
+<p><strong>This library formats and orchestrates; the host evaluates.</strong></p>
+</blockquote>
+<h2 id="quick-taste">Quick taste<a class="headerlink" href="#quick-taste" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nx">a</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">minitest</span><span class="p">.</span><span class="nx">NewAssertions</span><span class="p">(</span><span class="nx">rt</span><span class="p">)</span><span class="w"> </span><span class="c1">// rt implements Runtime</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nx">err</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">a</span><span class="p">.</span><span class="nx">AssertEqual</span><span class="p">(</span><span class="nx">exp</span><span class="p">,</span><span class="w"> </span><span class="nx">act</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="w"> </span><span class="c1">// exp=1, act=2</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1">// err.Error() ==</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1">//   Expected: 1</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="c1">//     Actual: 2</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nx">res</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">minitest</span><span class="p">.</span><span class="nx">RunTest</span><span class="p">(</span><span class="nx">body</span><span class="p">,</span><span class="w"> </span><span class="nx">elapsed</span><span class="p">)</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="nx">res</span><span class="p">.</span><span class="nx">ResultCode</span><span class="p">()</span><span class="w"> </span><span class="c1">// &quot;.&quot;, &quot;F&quot;, &quot;E&quot;, or &quot;S&quot;</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="nx">res</span><span class="p">.</span><span class="nx">Passed</span><span class="p">()</span><span class="w">     </span><span class="c1">// false on failure/skip/error</span>
 </code></pre></div>
 <h2 id="repositories">Repositories<a class="headerlink" href="#repositories" title="Permanent link">&para;</a></h2>
 <table>
@@ -523,7 +653,7 @@ and three OSes.</p>
 <tbody>
 <tr>
 <td><a href="https://github.com/go-ruby-minitest/minitest"><code>minitest</code></a></td>
-<td>the library — Ruby's <code>minitest</code> in pure Go</td>
+<td>the library — assertions, run lifecycle, <code>Result</code>, spec DSL, <code>Mock</code>/<code>Stub</code>, and the <code>Runtime</code> seam</td>
 </tr>
 <tr>
 <td><a href="https://github.com/go-ruby-minitest/docs"><code>docs</code></a></td>
@@ -543,19 +673,27 @@ and three OSes.</p>
 <ul>
 <li><strong>Pure Go, <code>CGO_ENABLED=0</code></strong> — trivial cross-compilation, a single static
   binary, no C toolchain.</li>
-<li><strong>Reference-faithful.</strong> Behaviour matches reference Ruby (MRI), validated by a
-  differential oracle rather than approximated.</li>
-<li><strong>Standalone &amp; reusable.</strong> No dependency on the Ruby runtime — the dependency
-  runs the other way; <code>rbgo</code> binds this module.</li>
-<li><strong>100% test coverage</strong> is the target, enforced as a CI gate, across 6 arches.</li>
+<li><strong>Gem byte-exact.</strong> Failure messages, <code>mu_pp</code> output and run-result semantics
+  match the reference <code>minitest</code> 5.x gem exactly, not approximately.</li>
+<li><strong>Standalone &amp; reusable.</strong> No dependency on the Ruby runtime; the dependency
+  runs the other way (go-embedded-ruby consumes this).</li>
+<li><strong>100% test coverage</strong> is the target, enforced as a CI gate.</li>
 </ul>
 <h2 id="where-to-go-next">Where to go next<a class="headerlink" href="#where-to-go-next" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="why/">Why pure Go</a> — why this slice of Ruby lives as a standalone,
-  interpreter-independent Go library.</li>
-<li><a href="reference/">Reference</a> — install, import path and the API reference.</li>
+<li><a href="why/">Why a formatter, not an interpreter</a> — the deterministic/interpreter
+  split and the <code>Runtime</code> seam.</li>
+<li><a href="api/">Usage &amp; API</a> — <code>NewAssertions</code>, <code>RunTest</code>, <code>Result</code>, the spec-DSL
+  helpers, <code>Mock</code>/<code>Stub</code>, and the <code>Runtime</code> interface.</li>
+<li><a href="assertions/">Assertions &amp; messages</a> — the assertion surface and the exact
+  failure wording.</li>
+<li><a href="lifecycle/">Run lifecycle &amp; results</a> — <code>Test#run</code>, <code>capture_exceptions</code>,
+  and the <code>Result</code> predicates.</li>
+<li><a href="performance/">Performance</a> — the cross-runtime library-level benchmark.</li>
+<li><a href="roadmap/">Roadmap</a> — what is done and what is downstream by design.</li>
 </ul>
-<p>Source lives at <a href="https://github.com/go-ruby-minitest/minitest">github.com/go-ruby-minitest/minitest</a>.</p>
+<p>Source lives at
+<a href="https://github.com/go-ruby-minitest/minitest">github.com/go-ruby-minitest/minitest</a>.</p>
 
 
 

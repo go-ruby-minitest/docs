@@ -10,22 +10,28 @@
       
       
       
+        <link rel="canonical" href="https://go-ruby-minitest.github.io/docs/0.1/assertions/">
       
       
+        <link rel="prev" href="../api/">
       
-      <link rel="icon" href="/docs/0.1/assets/logo.svg">
+      
+        <link rel="next" href="../lifecycle/">
+      
+      
+      <link rel="icon" href="../assets/logo.svg">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
     
     
       
-        <title>go-ruby-minitest docs</title>
+        <title>Assertions & messages - go-ruby-minitest docs</title>
       
     
     
-      <link rel="stylesheet" href="/docs/0.1/assets/stylesheets/main.6f8fc17f.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.6f8fc17f.min.css">
       
         
-        <link rel="stylesheet" href="/docs/0.1/assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -44,7 +50,7 @@
       
     
     
-    <script>__md_scope=new URL("/docs/0.1",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -69,6 +75,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#assertions-messages" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -85,9 +96,9 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="/docs/0.1/." title="go-ruby-minitest docs" class="md-header__button md-logo" aria-label="go-ruby-minitest docs" data-md-component="logo">
+    <a href=".." title="go-ruby-minitest docs" class="md-header__button md-logo" aria-label="go-ruby-minitest docs" data-md-component="logo">
       
-  <img src="/docs/0.1/assets/logo.svg" alt="logo">
+  <img src="../assets/logo.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -104,7 +115,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              
+              Assertions & messages
             
           </span>
         </div>
@@ -229,9 +240,9 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="/docs/0.1/." title="go-ruby-minitest docs" class="md-nav__button md-logo" aria-label="go-ruby-minitest docs" data-md-component="logo">
+    <a href=".." title="go-ruby-minitest docs" class="md-nav__button md-logo" aria-label="go-ruby-minitest docs" data-md-component="logo">
       
-  <img src="/docs/0.1/assets/logo.svg" alt="logo">
+  <img src="../assets/logo.svg" alt="logo">
 
     </a>
     go-ruby-minitest docs
@@ -258,7 +269,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/docs/0.1/." class="md-nav__link">
+      <a href=".." class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -278,7 +289,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/docs/0.1/why/" class="md-nav__link">
+      <a href="../why/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -298,7 +309,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/docs/0.1/api/" class="md-nav__link">
+      <a href="../api/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -315,10 +326,30 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="/docs/0.1/assertions/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Assertions & messages
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -327,6 +358,62 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-message-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      The message model
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wording-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Wording reference
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mu_pp" class="md-nav__link">
+    <span class="md-ellipsis">
+      mu_pp
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#float-formatting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Float formatting
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -338,7 +425,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/docs/0.1/lifecycle/" class="md-nav__link">
+      <a href="../lifecycle/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -358,7 +445,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/docs/0.1/roadmap/" class="md-nav__link">
+      <a href="../roadmap/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -378,7 +465,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/docs/0.1/performance/" class="md-nav__link">
+      <a href="../performance/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -398,7 +485,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/docs/0.1/contributing/" class="md-nav__link">
+      <a href="../contributing/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -428,6 +515,52 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-message-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      The message model
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wording-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Wording reference
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mu_pp" class="md-nav__link">
+    <span class="md-ellipsis">
+      mu_pp
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#float-formatting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Float formatting
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -439,8 +572,145 @@
             <div class="md-content" data-md-component="content">
               <article class="md-content__inner md-typeset">
                 
-  <h1>404 - Not found</h1>
+                  
 
+
+<h1 id="assertions-messages">Assertions &amp; messages<a class="headerlink" href="#assertions-messages" title="Permanent link">&para;</a></h1>
+<p>The load-bearing job of this layer is the <strong>exact failure message</strong>. Each
+<code>assert_*</code>/<code>refute_*</code> returns <code>nil</code> on pass or an <code>*Assertion</code>/<code>*Skip</code> whose
+message is byte-identical to the <code>minitest</code> 5.x gem's. Every message below is
+verified against the live gem by the <a href="../performance/">differential oracle</a>.</p>
+<h2 id="the-message-model">The message model<a class="headerlink" href="#the-message-model" title="Permanent link">&para;</a></h2>
+<p><code>Minitest::Assertions#message</code> composes an optional custom message with a default
+and an ending:</p>
+<ul>
+<li>a custom message is chomped of one trailing <code>.</code> then rendered as <code>"#{msg}.\n"</code>;</li>
+<li>the default follows;</li>
+<li>the ending is <code>.</code> for most assertions, and <strong>empty</strong> for <code>assert_equal</code>'s diff
+  form (so the diff gets no trailing dot).</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nx">a</span><span class="p">.</span><span class="nx">AssertEqual</span><span class="p">(</span><span class="nx">rInt</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="nx">rInt</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;oops&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1">// oops.</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1">// Expected: 1</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1">//   Actual: 2</span>
+</code></pre></div>
+<h2 id="wording-reference">Wording reference<a class="headerlink" href="#wording-reference" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Assertion</th>
+<th>Failure message (default)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>assert</code></td>
+<td><code>Expected &lt;mu_pp&gt; to be truthy.</code></td>
+</tr>
+<tr>
+<td><code>refute</code></td>
+<td><code>Expected &lt;mu_pp&gt; to not be truthy.</code></td>
+</tr>
+<tr>
+<td><code>assert_equal</code></td>
+<td><code>Expected: &lt;exp&gt;</code>⏎<code>Actual: &lt;act&gt;</code> (diff form, no trailing dot)</td>
+</tr>
+<tr>
+<td><code>refute_equal</code></td>
+<td><code>Expected &lt;act&gt; to not be equal to &lt;exp&gt;.</code></td>
+</tr>
+<tr>
+<td><code>assert_nil</code></td>
+<td><code>Expected &lt;mu_pp&gt; to be nil.</code></td>
+</tr>
+<tr>
+<td><code>assert_empty</code></td>
+<td><code>Expected &lt;mu_pp&gt; to be empty.</code> (first asserts <code>respond_to? :empty?</code>)</td>
+</tr>
+<tr>
+<td><code>assert_includes</code></td>
+<td><code>Expected &lt;coll&gt; to include &lt;obj&gt;.</code></td>
+</tr>
+<tr>
+<td><code>assert_instance_of</code></td>
+<td><code>Expected &lt;obj&gt; to be an instance of &lt;cls&gt;, not &lt;class&gt;.</code></td>
+</tr>
+<tr>
+<td><code>assert_kind_of</code></td>
+<td><code>Expected &lt;obj&gt; to be a kind of &lt;cls&gt;, not &lt;class&gt;.</code></td>
+</tr>
+<tr>
+<td><code>assert_respond_to</code></td>
+<td><code>Expected &lt;obj&gt; (&lt;class&gt;) to respond to #&lt;meth&gt;.</code></td>
+</tr>
+<tr>
+<td><code>assert_match</code></td>
+<td><code>Expected &lt;regexp&gt; to match &lt;obj&gt;.</code> (a String matcher is promoted)</td>
+</tr>
+<tr>
+<td><code>assert_same</code></td>
+<td><code>Expected &lt;act&gt; (oid=N) to be the same as &lt;exp&gt; (oid=N).</code></td>
+</tr>
+<tr>
+<td><code>assert_in_delta</code></td>
+<td><code>Expected \|&lt;exp&gt; - &lt;act&gt;\| (&lt;n&gt;) to be &lt;= &lt;delta&gt;.</code></td>
+</tr>
+<tr>
+<td><code>assert_operator</code></td>
+<td><code>Expected &lt;o1&gt; to be &lt;op&gt; &lt;o2&gt;.</code></td>
+</tr>
+<tr>
+<td><code>assert_predicate</code></td>
+<td><code>Expected &lt;o1&gt; to be &lt;op&gt;.</code></td>
+</tr>
+<tr>
+<td><code>flunk</code></td>
+<td><code>Epic Fail!</code></td>
+</tr>
+<tr>
+<td><code>skip</code></td>
+<td><code>Skipped, no message given</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>&lt;mu_pp&gt;</code>, <code>&lt;exp&gt;</code>, <code>&lt;act&gt;</code>, … are the <a href="#mu_pp"><code>mu_pp</code></a> inspection of the value.
+Each <code>refute_*</code> inverts the sense (<code>to not be …</code>).</p>
+<h2 id="mu_pp">mu_pp<a class="headerlink" href="#mu_pp" title="Permanent link">&para;</a></h2>
+<p><code>mu_pp(obj)</code> is <code>obj.inspect</code>, with two 5.x refinements the library reproduces:</p>
+<ul>
+<li>a <code>String</code> whose encoding differs from <code>Encoding.default_external</code>, or which is
+  invalidly encoded, gets an encoding annotation;</li>
+<li><code>mu_pp_for_diff</code> additionally normalizes for the diff path.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nx">a</span><span class="p">.</span><span class="nx">MuPP</span><span class="p">(</span><span class="nx">rInt</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span><span class="w">            </span><span class="c1">// 5</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nx">a</span><span class="p">.</span><span class="nx">MuPP</span><span class="p">(</span><span class="nx">rStr</span><span class="p">(</span><span class="s">&quot;hi&quot;</span><span class="p">))</span><span class="w">         </span><span class="c1">// &quot;hi&quot;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nx">a</span><span class="p">.</span><span class="nx">MuPP</span><span class="p">(</span><span class="nx">rArr</span><span class="p">{</span><span class="nx">rInt</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="nx">rInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)})</span><span class="w"> </span><span class="c1">// [1, 2]</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="nx">a</span><span class="p">.</span><span class="nx">MuPP</span><span class="p">(</span><span class="nx">rNil</span><span class="p">)</span><span class="w">               </span><span class="c1">// nil</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="nx">a</span><span class="p">.</span><span class="nx">MuPP</span><span class="p">(</span><span class="nx">rSym</span><span class="p">(</span><span class="s">&quot;foo&quot;</span><span class="p">))</span><span class="w">        </span><span class="c1">// :foo</span>
+</code></pre></div>
+<p>The <code>inspect</code>, <code>==</code>, <code>=~</code>, <code>include?</code>, <code>respond_to?</code>, class name and <code>__send__</code>
+that these messages interpolate all come from the host's
+<a href="../api/#the-runtime-seam"><code>Runtime</code></a> — the library formats, the host supplies the
+value semantics.</p>
+<h2 id="float-formatting">Float formatting<a class="headerlink" href="#float-formatting" title="Permanent link">&para;</a></h2>
+<p><code>assert_in_delta</code> / <code>assert_in_epsilon</code> interpolate floats the way Ruby's
+<code>Float#to_s</code> does: shortest round-tripping decimal, positional unless the decimal
+exponent is <code>&lt; -4</code> or <code>&gt;= 15</code> (then <code>d.dddde±NN</code> with a signed, ≥2-digit
+exponent), with <code>Infinity</code>/<code>-Infinity</code>/<code>NaN</code>/<code>-0.0</code> special-cased. The library
+reshapes Go's shortest <code>strconv</code> output to those exact thresholds.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
               </article>
             </div>
           
@@ -480,10 +750,10 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "/docs/0.1", "features": ["navigation.sections", "navigation.top", "navigation.instant", "content.code.copy", "search.suggest"], "search": "/docs/0.1/assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.sections", "navigation.top", "navigation.instant", "content.code.copy", "search.suggest"], "search": "../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="/docs/0.1/assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      <script src="../assets/javascripts/bundle.88dd0f4e.min.js"></script>
       
     
   </body>
