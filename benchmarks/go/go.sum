@@ -1,2 +1,4 @@
 github.com/go-ruby-minitest/minitest v0.0.0-20260630144113-dbcefec3be56 h1:xDLBszP9ctFp6AM+Hx2VFGTcBNdu2AttUMairyOZJyQ=
 github.com/go-ruby-minitest/minitest v0.0.0-20260630144113-dbcefec3be56/go.mod h1:uTtdIEuNPKAm9oIvtKyG1LKO67WhE3luarsY5vQDiC8=
+github.com/go-ruby-minitest/minitest v0.0.0-20260717070426-42021a9bc848 h1:0ddXZZfg/5tQyXiNzPFcEcN/WtL1EXOhy9VQHVEIvEI=
+github.com/go-ruby-minitest/minitest v0.0.0-20260717070426-42021a9bc848/go.mod h1:uTtdIEuNPKAm9oIvtKyG1LKO67WhE3luarsY5vQDiC8=
