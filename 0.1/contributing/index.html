@@ -591,14 +591,14 @@ coverage, gem byte-exact.</strong></p>
 </ul>
 <h2 id="running-the-suite">Running the suite<a class="headerlink" href="#running-the-suite" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nv">COVERPKG</span><span class="o">=</span><span class="k">$(</span>go<span class="w"> </span>list<span class="w"> </span>./...<span class="w"> </span><span class="p">|</span><span class="w"> </span>paste<span class="w"> </span>-sd,<span class="w"> </span>-<span class="k">)</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>go<span class="w"> </span><span class="nb">test</span><span class="w"> </span>-race<span class="w"> </span>-coverpkg<span class="o">=</span><span class="s2">&quot;</span><span class="nv">$COVERPKG</span><span class="s2">&quot;</span><span class="w"> </span>-coverprofile<span class="o">=</span>cover.out<span class="w"> </span>./...
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>go<span class="w"> </span><span class="nb">test</span><span class="w"> </span>-race<span class="w"> </span>-coverpkg<span class="o">=</span><span class="s2">"</span><span class="nv">$COVERPKG</span><span class="s2">"</span><span class="w"> </span>-coverprofile<span class="o">=</span>cover.out<span class="w"> </span>./...
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>go<span class="w"> </span>tool<span class="w"> </span>cover<span class="w"> </span>-func<span class="o">=</span>cover.out<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-1<span class="w">   </span><span class="c1"># 100.0%</span>
 </code></pre></div>
 <p>The <strong>differential gem oracle</strong> compares every message against the live gem. It
 skips itself where <code>ruby</code> or the 5.x gem is absent. A system ruby too new for the
 5.x gem can point the oracle at an unpacked 5.x tree:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>gem<span class="w"> </span>unpack<span class="w"> </span>minitest<span class="w"> </span>-v<span class="w"> </span><span class="m">5</span>.25.5
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">MINITEST5_LIB</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">/minitest-5.25.5/lib&quot;</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">MINITEST5_LIB</span><span class="o">=</span><span class="s2">"</span><span class="nv">$PWD</span><span class="s2">/minitest-5.25.5/lib"</span>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>go<span class="w"> </span><span class="nb">test</span><span class="w"> </span>-run<span class="w"> </span>TestOracle<span class="w"> </span>./...
 </code></pre></div>
 <h2 id="adding-an-assertion-or-message">Adding an assertion or message<a class="headerlink" href="#adding-an-assertion-or-message" title="Permanent link">&para;</a></h2>
