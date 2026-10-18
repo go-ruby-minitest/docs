@@ -1,6 +1,11 @@
-# Roadmap
+---
+title: "Roadmap"
+weight: 60
+---
 
-## Done — the deterministic core
+# Roadmap {#roadmap}
+
+## Done — the deterministic core {#done-the-deterministic-core}
 
 - [x] **Assertions** — every `assert_*`/`refute_*`, `flunk`/`skip`/`pass`, with
       byte-exact failure messages, `mu_pp`/`mu_pp_for_diff`, the custom-message
@@ -18,21 +23,21 @@
       with exact error wording.
 - [x] **Differential gem oracle** + 100% coverage, `gofmt`/`go vet` clean, CI
       green on the six 64-bit Go arches and three OSes.
-- [x] **Cross-runtime performance benchmark** — see [Performance](performance.md).
+- [x] **Cross-runtime performance benchmark** — see [Performance]({{< relref "performance.md" >}}).
 
-## Downstream by design (the host's job)
+## Downstream by design (the host's job) {#downstream-by-design-the-hosts-job}
 
 - [ ] **Ruby evaluation** — running test method *bodies* and assertion *blocks*,
       and the value-level operations an assertion compares (`#==`, `#=~`,
       `#inspect`, `#include?`, `#respond_to?`, …). These need a Ruby interpreter
-      and are supplied through the [`Runtime`](api.md#the-runtime-seam) seam by
+      and are supplied through the [`Runtime`]({{< relref "api.md#the-runtime-seam" >}}) seam by
       the consumer (rbgo). This library never evaluates Ruby.
 - [ ] **rbgo binding** — wiring the seam over go-embedded-ruby's object graph so
       real Minitest suites run on a pure-Go Ruby. Tracked in the
       [go-embedded-ruby](https://github.com/go-embedded-ruby/ruby) consumer, not
       here.
 
-## Possible future work
+## Possible future work {#possible-future-work}
 
 - [ ] **Reporters / runner CLI** surface (progress dots, summary,
       `Minitest::Reporter`) — only the parts that are deterministic and

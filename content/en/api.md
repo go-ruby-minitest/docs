@@ -1,11 +1,16 @@
-# Usage & API
+---
+title: "Usage & API"
+weight: 30
+---
+
+# Usage & API {#usage-api}
 
 `go get github.com/go-ruby-minitest/minitest`
 
 A host implements the [`Runtime`](#the-runtime-seam) seam over its own Ruby value
 model; the library then produces gem-identical messages and run results.
 
-## Assertions
+## Assertions {#assertions}
 
 ```go
 func NewAssertions(rt Runtime) *Assertions
@@ -42,10 +47,10 @@ s := a.MuPP(obj)        // mu_pp
 s  = a.MuPPForDiff(obj) // mu_pp_for_diff
 ```
 
-Each `assert_*` has a matching `refute_*`. See [Assertions & messages](assertions.md)
+Each `assert_*` has a matching `refute_*`. See [Assertions & messages]({{< relref "assertions.md" >}})
 for the exact wording.
 
-## Block assertions
+## Block assertions {#block-assertions}
 
 `assert_raises` / `assert_throws` / `assert_output` / `assert_silent` classify
 what a block did; the host runs the block and reports the outcome:
@@ -55,7 +60,7 @@ res, err := a.AssertRaises(outcome RaiseOutcome, msg, expectedList, singleClass 
 err       = a.AssertThrows(outcome ThrowOutcome, tag, msg string)
 ```
 
-## Run lifecycle
+## Run lifecycle {#run-lifecycle}
 
 ```go
 func RunTest(body TestBody, elapsed float64) (res *Result, abort *Passthrough)
@@ -84,9 +89,9 @@ func (r *Result) Location(baseDir string) string
 func (r *Result) String(baseDir string) string // Result#to_s
 ```
 
-See [Run lifecycle & results](lifecycle.md).
+See [Run lifecycle & results]({{< relref "lifecycle.md" >}}).
 
-## Spec DSL
+## Spec DSL {#spec-dsl}
 
 ```go
 func ItName(seq int, desc string) string                  // "test_%04d_%s"
@@ -94,7 +99,7 @@ func ValidateLetName(name string, reserved []string) string
 func LookupExpectation(method string) (Expectation, bool) // must_*/wont_* table
 ```
 
-## Mock / Stub
+## Mock / Stub {#mock-stub}
 
 ```go
 func NewMock(m MockMatcher) *Mock
@@ -108,7 +113,7 @@ The mock reproduces the exact `MockExpectationError` / `ArgumentError` /
 `NoMethodError` wording and the under-called-vs-never-called `verify`
 distinction.
 
-## The `Runtime` seam
+## The `Runtime` seam {#the-runtime-seam}
 
 Everything requiring genuine Ruby semantics is a seam the host supplies; the
 library owns only the pure formatting / orchestration / aggregation.

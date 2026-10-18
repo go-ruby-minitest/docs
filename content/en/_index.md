@@ -1,4 +1,9 @@
-# go-ruby-minitest documentation
+---
+title: "Home"
+weight: 10
+---
+
+# go-ruby-minitest documentation {#go-ruby-minitest-documentation}
 
 **A pure-Go reimplementation of the core of Ruby's Minitest** — the
 deterministic, interpreter-independent heart of the framework (targeting Minitest
@@ -17,17 +22,20 @@ also the Minitest backend for
 host wires the `Runtime` seam over its object graph so real Minitest suites run
 on a pure-Go Ruby.
 
-!!! success "Status: core complete — gem byte-exact"
-    Every `assert_*`/`refute_*` (plus `flunk`/`skip`/`pass`) with its **byte-exact**
-    failure message, `mu_pp`/`mu_pp_for_diff`, the custom-message prepend and the
-    assertion counter; the `Test#run` lifecycle and the `Result` model; the
-    `describe`/`it` spec DSL with the full `must_*`/`wont_*` mapping; and the
-    `Mock`/`Stub` framework. Validated by a **differential gem oracle** against the
-    live `minitest` 5.x gem — every message, `mu_pp`, run-result tuple and
-    mock-verify diagnostic compared byte-for-byte — at 100% coverage, `gofmt` +
-    `go vet` clean, CI green across the six 64-bit Go targets and three OSes.
+{{< callout type="info" >}}
+**Status: core complete — gem byte-exact**
 
-## What it is — and isn't
+Every `assert_*`/`refute_*` (plus `flunk`/`skip`/`pass`) with its **byte-exact**
+failure message, `mu_pp`/`mu_pp_for_diff`, the custom-message prepend and the
+assertion counter; the `Test#run` lifecycle and the `Result` model; the
+`describe`/`it` spec DSL with the full `must_*`/`wont_*` mapping; and the
+`Mock`/`Stub` framework. Validated by a **differential gem oracle** against the
+live `minitest` 5.x gem — every message, `mu_pp`, run-result tuple and
+mock-verify diagnostic compared byte-for-byte — at 100% coverage, `gofmt` +
+`go vet` clean, CI green across the six 64-bit Go targets and three OSes.
+{{< /callout >}}
+
+## What it is — and isn't {#what-it-is-and-isnt}
 
 The load-bearing part of Minitest is the **wording**: the
 `"Expected: 1\n  Actual: 2"` of `assert_equal`, the `mu_pp` inspection, the
@@ -37,11 +45,11 @@ mock bookkeeping are fully **deterministic** and live here as pure Go. Evaluatin
 the test **bodies** and the value-level operations an assertion compares with
 (`#==`, `#=~`, `#inspect`, `#include?`, `#respond_to?`, …) need a Ruby
 interpreter and are the host's job, funnelled through one explicit
-[`Runtime`](api.md#the-runtime-seam) seam.
+[`Runtime`]({{< relref "api.md#the-runtime-seam" >}}) seam.
 
 > **This library formats and orchestrates; the host evaluates.**
 
-## Quick taste
+## Quick taste {#quick-taste}
 
 ```go
 a := minitest.NewAssertions(rt) // rt implements Runtime
@@ -56,7 +64,7 @@ res.ResultCode() // ".", "F", "E", or "S"
 res.Passed()     // false on failure/skip/error
 ```
 
-## Repositories
+## Repositories {#repositories}
 
 | Repo | What it is |
 | --- | --- |
@@ -65,7 +73,7 @@ res.Passed()     // false on failure/skip/error
 | [`go-ruby-minitest.github.io`](https://github.com/go-ruby-minitest/go-ruby-minitest.github.io) | the organization landing page (Hugo) |
 | [`brand`](https://github.com/go-ruby-minitest/brand) | logo and brand assets |
 
-## Principles
+## Principles {#principles}
 
 - **Pure Go, `CGO_ENABLED=0`** — trivial cross-compilation, a single static
   binary, no C toolchain.
@@ -75,18 +83,18 @@ res.Passed()     // false on failure/skip/error
   runs the other way (go-embedded-ruby consumes this).
 - **100% test coverage** is the target, enforced as a CI gate.
 
-## Where to go next
+## Where to go next {#where-to-go-next}
 
-- [Why a formatter, not an interpreter](why.md) — the deterministic/interpreter
+- [Why a formatter, not an interpreter]({{< relref "why.md" >}}) — the deterministic/interpreter
   split and the `Runtime` seam.
-- [Usage & API](api.md) — `NewAssertions`, `RunTest`, `Result`, the spec-DSL
+- [Usage & API]({{< relref "api.md" >}}) — `NewAssertions`, `RunTest`, `Result`, the spec-DSL
   helpers, `Mock`/`Stub`, and the `Runtime` interface.
-- [Assertions & messages](assertions.md) — the assertion surface and the exact
+- [Assertions & messages]({{< relref "assertions.md" >}}) — the assertion surface and the exact
   failure wording.
-- [Run lifecycle & results](lifecycle.md) — `Test#run`, `capture_exceptions`,
+- [Run lifecycle & results]({{< relref "lifecycle.md" >}}) — `Test#run`, `capture_exceptions`,
   and the `Result` predicates.
-- [Performance](performance.md) — the cross-runtime library-level benchmark.
-- [Roadmap](roadmap.md) — what is done and what is downstream by design.
+- [Performance]({{< relref "performance.md" >}}) — the cross-runtime library-level benchmark.
+- [Roadmap]({{< relref "roadmap.md" >}}) — what is done and what is downstream by design.
 
 Source lives at
 [github.com/go-ruby-minitest/minitest](https://github.com/go-ruby-minitest/minitest).

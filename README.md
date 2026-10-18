@@ -3,8 +3,7 @@
 # docs — go-ruby-minitest
 
 The documentation site for [go-ruby-minitest](https://github.com/go-ruby-minitest),
-built with [MkDocs Material](https://squidfunk.github.io/mkdocs-material/) and
-versioned with [mike](https://github.com/jimporter/mike). Served at
+built with [Hugo](https://gohugo.io/) and this fleet's [Hextra fork](https://github.com/tannevaled/hextra) — upstream Hextra plus the opt-in features the fleet's sites use. Served at
 [go-ruby-minitest.github.io/docs/](https://go-ruby-minitest.github.io/docs/).
 
 ## Build locally

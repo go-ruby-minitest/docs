@@ -1,9 +1,14 @@
-# Why a formatter/orchestrator, not an interpreter
+---
+title: "Why a formatter/orchestrator, not an interpreter"
+weight: 20
+---
+
+# Why a formatter/orchestrator, not an interpreter {#why-a-formatterorchestrator-not-an-interpreter}
 
 Minitest does two very different kinds of work, and only one of them needs a Ruby
 interpreter.
 
-## The deterministic core
+## The deterministic core {#the-deterministic-core}
 
 Most of what makes Minitest *Minitest* is **wording and bookkeeping**:
 
@@ -23,10 +28,10 @@ None of that evaluates Ruby. It is pure string formatting, control flow and data
 structures — so it lives here as **pure Go**, deterministic and reproducible,
 byte-for-byte identical to the gem.
 
-## The interpreter surface (a seam)
+## The interpreter surface (a seam) {#the-interpreter-surface-a-seam}
 
 Everything that needs genuine Ruby object semantics is funnelled through one
-explicit interface, [`Runtime`](api.md#the-runtime-seam):
+explicit interface, [`Runtime`]({{< relref "api.md#the-runtime-seam" >}}):
 
 - value inspection (`#inspect`), equality (`#==`), identity (`#equal?` /
   `object_id`), regexp match (`#=~`), `#respond_to?`, `#include?`, `#empty?`,
@@ -40,7 +45,7 @@ to the Ruby VM.
 > **This library never evaluates Ruby. It only formats, orchestrates, and
 > aggregates.**
 
-## Why the split matters
+## Why the split matters {#why-the-split-matters}
 
 Because the core is pure and interpreter-free, it:
 

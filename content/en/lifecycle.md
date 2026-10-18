@@ -1,8 +1,13 @@
-# Run lifecycle & results
+---
+title: "Run lifecycle & results"
+weight: 50
+---
+
+# Run lifecycle & results {#run-lifecycle-results}
 
 `RunTest` reproduces `Minitest::Test#run` exactly.
 
-## The capture protocol
+## The capture protocol {#the-capture-protocol}
 
 ```
 SETUP_METHODS + body   →  one shared capture_exceptions
@@ -37,7 +42,7 @@ the VM and returns the captured, already-classified exception (`*Assertion`,
 `*Skip`, `*UnexpectedError`, or a passthrough sentinel), plus the test's name,
 class, assertion count and source location.
 
-## Result
+## Result {#result}
 
 ```go
 type Result struct {

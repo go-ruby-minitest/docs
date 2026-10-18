@@ -1,4 +1,9 @@
-# Performance
+---
+title: "Performance"
+weight: 70
+---
+
+# Performance {#performance}
 
 `go-ruby-minitest/minitest` is the pure-Go, MRI-faithful **core of Minitest** —
 the assertion layer and the per-test run lifecycle — that
@@ -7,7 +12,7 @@ suites run on a pure-Go Ruby. This page records a **comparative, library-level
 benchmark** of that module against the reference Ruby runtimes, part of the
 ecosystem-wide per-module parity suite.
 
-## What the ops map to
+## What the ops map to {#what-the-ops-map-to}
 
 The library owns the **deterministic** part of Minitest: assertion **dispatch**
 and byte-exact **failure-message construction** (`mu_pp`, the `Expected/Actual`
@@ -29,7 +34,7 @@ Three fixed sub-benchmarks; an "op" is **one full pass** over the fixed set:
   through the lifecycle and tally the result codes: `minitest.RunTest` vs
   `Minitest.run_one_method`.
 
-## Library-level benchmark (Go API vs runtimes) — 2026-07-04
+## Library-level benchmark (Go API vs runtimes) — 2026-07-04 {#library-level-benchmark-go-api-vs-runtimes-2026-07-04}
 
 This measures the **pure-Go library directly, through its Go API**, isolated
 from any interpreter dispatch. The **same workload, same fixed inputs, same
@@ -53,7 +58,7 @@ timing (see *Reproduce* below).
   not `ruby file.rb` process costs. Go/MRI/YJIT: 80 timed passes; JRuby/TruffleRuby:
   40 timed passes.
 
-#### assert-pass
+#### assert-pass {#assert-pass}
 
 | Runtime | ns/op | vs MRI |
 | --- | ---: | ---: |
@@ -63,7 +68,7 @@ timing (see *Reproduce* below).
 | JRuby | 1992.6 | 0.26× |
 | TruffleRuby | 879.2 | 0.11× |
 
-#### assert-fail
+#### assert-fail {#assert-fail}
 
 | Runtime | ns/op | vs MRI |
 | --- | ---: | ---: |
@@ -73,7 +78,7 @@ timing (see *Reproduce* below).
 | JRuby | 316153.4 | 11.38× |
 | TruffleRuby | 11720.3 | 0.42× |
 
-#### test-run
+#### test-run {#test-run}
 
 | Runtime | ns/op | vs MRI |
 | --- | ---: | ---: |
@@ -83,7 +88,7 @@ timing (see *Reproduce* below).
 | JRuby | 106314.0 | 3.42× |
 | TruffleRuby | 189454.9 | 6.09× |
 
-## Reading the numbers
+## Reading the numbers {#reading-the-numbers}
 
 Against **MRI + YJIT** — the strongest CRuby configuration, the headline
 comparison — the pure-Go core is **2.7× faster on `assert-pass`**, **11.3× faster
@@ -106,34 +111,40 @@ amount of *framework* work in the op:
   here (6.1× slower than MRI): the per-call `run_one_method` path never reaches a
   steady compiled state in this budget.
 
-!!! note "Reproduce"
-    The harness is committed under
-    [`benchmarks/`](https://github.com/go-ruby-minitest/docs/tree/main/benchmarks):
-    a self-contained Go driver (`go/`, pins the published library via `go.mod`
-    pseudo-version — no `replace`), the equivalent `ruby/minitest.rb` workload,
-    and `run.sh`. Minitest 5.x source is shared via `MINITEST5_LIB`
-    (`gem unpack minitest -v 5.25.5`). Run `bash benchmarks/run.sh`; env
-    `OUTER`/`WARM` tune the pass budget and `RUBY`/`JRUBY`/`TRUFFLERUBY` select
-    the runtime binaries. Both drivers accept a `verify` argument
-    (`(cd benchmarks/go && GOWORK=off go run . verify)` vs
-    `ruby benchmarks/ruby/minitest.rb verify`) that prints every passing result,
-    every failure message, and the run tally — all confirmed **byte-identical**
-    to MRI before timing.
+{{< callout type="info" >}}
+**Reproduce**
 
-!!! warning "Honest floor & framing"
-    On the **`assert-pass`** row — the pure-dispatch case — a **warmed** JIT beats
-    the pure-Go core: TruffleRuby (0.11×) and JRuby (0.26×) are faster than
-    go-ruby (0.31×) once their JITs are hot, because dispatching a handful of
-    native-comparison assertions is exactly what those JITs optimize best. The
-    pure-Go library wins decisively only where real **framework** work
-    (message-building without raising, or the run lifecycle) dominates. Note too
-    that go-ruby's value operations here come from a trivial Go fake; a real host
-    (rbgo) would route `#==`/`#inspect` through its own object graph, which is
-    slower — so the `assert-*` rows are best read as *"the library's own
-    orchestration is not the bottleneck"*, not as an end-to-end rbgo number.
-    Numbers reflect a **fixed warm-process budget**; the JVM/GraalVM columns can
-    understate peak throughput and the sub-microsecond figures carry the most
-    relative noise. Every number here is a **real measured value** from the dated
-    run above — nothing is fabricated, estimated, or cherry-picked. The go-ruby
-    column is the pure-Go library; every other column is that interpreter's own
-    `Minitest` doing the equivalent work.
+The harness is committed under
+[`benchmarks/`](https://github.com/go-ruby-minitest/docs/tree/main/benchmarks):
+a self-contained Go driver (`go/`, pins the published library via `go.mod`
+pseudo-version — no `replace`), the equivalent `ruby/minitest.rb` workload,
+and `run.sh`. Minitest 5.x source is shared via `MINITEST5_LIB`
+(`gem unpack minitest -v 5.25.5`). Run `bash benchmarks/run.sh`; env
+`OUTER`/`WARM` tune the pass budget and `RUBY`/`JRUBY`/`TRUFFLERUBY` select
+the runtime binaries. Both drivers accept a `verify` argument
+(`(cd benchmarks/go && GOWORK=off go run . verify)` vs
+`ruby benchmarks/ruby/minitest.rb verify`) that prints every passing result,
+every failure message, and the run tally — all confirmed **byte-identical**
+to MRI before timing.
+{{< /callout >}}
+
+{{< callout type="warning" >}}
+**Honest floor & framing**
+
+On the **`assert-pass`** row — the pure-dispatch case — a **warmed** JIT beats
+the pure-Go core: TruffleRuby (0.11×) and JRuby (0.26×) are faster than
+go-ruby (0.31×) once their JITs are hot, because dispatching a handful of
+native-comparison assertions is exactly what those JITs optimize best. The
+pure-Go library wins decisively only where real **framework** work
+(message-building without raising, or the run lifecycle) dominates. Note too
+that go-ruby's value operations here come from a trivial Go fake; a real host
+(rbgo) would route `#==`/`#inspect` through its own object graph, which is
+slower — so the `assert-*` rows are best read as *"the library's own
+orchestration is not the bottleneck"*, not as an end-to-end rbgo number.
+Numbers reflect a **fixed warm-process budget**; the JVM/GraalVM columns can
+understate peak throughput and the sub-microsecond figures carry the most
+relative noise. Every number here is a **real measured value** from the dated
+run above — nothing is fabricated, estimated, or cherry-picked. The go-ruby
+column is the pure-Go library; every other column is that interpreter's own
+`Minitest` doing the equivalent work.
+{{< /callout >}}
