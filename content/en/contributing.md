@@ -1,9 +1,14 @@
-# Contributing
+---
+title: "Contributing"
+weight: 80
+---
+
+# Contributing {#contributing}
 
 Contributions are welcome. The bar is the org standard: **pure Go, no cgo, 100%
 coverage, gem byte-exact.**
 
-## Ground rules
+## Ground rules {#ground-rules}
 
 - **`CGO_ENABLED=0`.** No cgo, ever. The library must cross-compile to all six
   64-bit Go targets.
@@ -16,7 +21,7 @@ coverage, gem byte-exact.**
 - **`gofmt` + `go vet` clean.**
 - License **BSD-3-Clause**; commits in **English**.
 
-## Running the suite
+## Running the suite {#running-the-suite}
 
 ```sh
 COVERPKG=$(go list ./... | paste -sd, -)
@@ -34,17 +39,17 @@ export MINITEST5_LIB="$PWD/minitest-5.25.5/lib"
 go test -run TestOracle ./...
 ```
 
-## Adding an assertion or message
+## Adding an assertion or message {#adding-an-assertion-or-message}
 
 1. Implement the pure-Go formatting/logic, delegating any value semantics to the
-   [`Runtime`](api.md#the-runtime-seam) seam — never evaluate Ruby in the library.
+   [`Runtime`]({{< relref "api.md#the-runtime-seam" >}}) seam — never evaluate Ruby in the library.
 2. Add a **deterministic** test (via the fake runtime) that pins the exact
    output, keeping coverage at 100%.
 3. Add an **oracle** case (`ruby_test.go`) that computes the same result here and
    asks the live gem for it, asserting byte-equality.
 
-## Benchmarks
+## Benchmarks {#benchmarks}
 
 Cross-runtime numbers live in the `docs` repo under `benchmarks/` and are
-published in [Performance](performance.md). Verify outputs are byte-identical to
+published in [Performance]({{< relref "performance.md" >}}). Verify outputs are byte-identical to
 MRI (`… verify`) before trusting any timing.

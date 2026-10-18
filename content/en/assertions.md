@@ -1,11 +1,16 @@
-# Assertions & messages
+---
+title: "Assertions & messages"
+weight: 40
+---
+
+# Assertions & messages {#assertions-messages}
 
 The load-bearing job of this layer is the **exact failure message**. Each
 `assert_*`/`refute_*` returns `nil` on pass or an `*Assertion`/`*Skip` whose
 message is byte-identical to the `minitest` 5.x gem's. Every message below is
-verified against the live gem by the [differential oracle](performance.md).
+verified against the live gem by the [differential oracle]({{< relref "performance.md" >}}).
 
-## The message model
+## The message model {#the-message-model}
 
 `Minitest::Assertions#message` composes an optional custom message with a default
 and an ending:
@@ -22,7 +27,7 @@ a.AssertEqual(rInt(1), rInt(2), "oops")
 //   Actual: 2
 ```
 
-## Wording reference
+## Wording reference {#wording-reference}
 
 | Assertion | Failure message (default) |
 | --- | --- |
@@ -47,7 +52,7 @@ a.AssertEqual(rInt(1), rInt(2), "oops")
 `<mu_pp>`, `<exp>`, `<act>`, … are the [`mu_pp`](#mu_pp) inspection of the value.
 Each `refute_*` inverts the sense (`to not be …`).
 
-## mu_pp
+## mu_pp {#mu_pp}
 
 `mu_pp(obj)` is `obj.inspect`, with two 5.x refinements the library reproduces:
 
@@ -65,10 +70,10 @@ a.MuPP(rSym("foo"))        // :foo
 
 The `inspect`, `==`, `=~`, `include?`, `respond_to?`, class name and `__send__`
 that these messages interpolate all come from the host's
-[`Runtime`](api.md#the-runtime-seam) — the library formats, the host supplies the
+[`Runtime`]({{< relref "api.md#the-runtime-seam" >}}) — the library formats, the host supplies the
 value semantics.
 
-## Float formatting
+## Float formatting {#float-formatting}
 
 `assert_in_delta` / `assert_in_epsilon` interpolate floats the way Ruby's
 `Float#to_s` does: shortest round-tripping decimal, positional unless the decimal
